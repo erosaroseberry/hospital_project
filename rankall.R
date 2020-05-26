@@ -21,12 +21,8 @@ rankall <- function(outcome, num = 'best') {
         colnum <- 23
     }
     
-    hospital <- c()
-    state <- c()
-    for (st in sort(state.abb)) {
-        hospital[length(hospital) + 1] <- rankhospital(st, outcome, num)
-        state[length(state) + 1] <- st
-    }
+    state <- sort(state.abb)
+    hospital <- sapply(state, rankhospital, outcome = outcome, num = num)
 
     res_df <- data.frame('hospital' = hospital, 'state' = state)
     rownames(res_df) <- state
